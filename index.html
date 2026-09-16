@@ -123,7 +123,7 @@ body:not(.is-unlocked) #lock-icon-unlocked{display:none!important}
         <li>Your work Google account</li>
         <li>About 5–10 minutes for first install</li>
       </ul>
-      <p class="muted">This guide covers the regular production Roster App (not Manager tools).</p>
+      <p class="muted">This guide covers the regular production Roster App <strong>1.6.19</strong> (not Manager tools). Managers: use the lock icon for the Manager guide.</p>
     </div>
   </section>
 
@@ -246,21 +246,38 @@ body:not(.is-unlocked) #lock-icon-unlocked{display:none!important}
   </section>
 
   <section id="use" class="panel" role="tabpanel" hidden>
-    <div class="card"><h2>How to use</h2><p class="muted">Illustrated steps — same style as install.</p></div>
+    <div class="card"><h2>How to use</h2><p class="muted">Illustrated steps for Roster App <strong>1.6.19</strong> (works with Apps Script <strong>1.6.23+</strong> on the team sheet).</p></div>
     <div class="card step"><div><h3><span class="step-num">1</span> Open Roster App</h3><p>Click the toolbar icon (pin it if needed).</p></div>
     <img src="images/use-1-open.png" alt="Open"/></div>
-    <div class="card step"><div><h3><span class="step-num">2</span> Choose your name</h3><p>Search and select your name the first time.</p></div>
+    <div class="card step"><div><h3><span class="step-num">2</span> Choose your name</h3><p>Search and select your name the first time. It is remembered for next opens.</p></div>
     <img src="images/use-2-name.png" alt="Name"/></div>
-    <div class="card step"><div><h3><span class="step-num">3</span> Add projects &amp; hours</h3><ul class="easy"><li>Optional Client</li><li>Project / Task</li><li>Press +</li><li>Enter hours</li></ul></div>
+    <div class="card step"><div><h3><span class="step-num">3</span> Add projects &amp; hours</h3>
+      <ul class="easy">
+        <li>Optional <strong>Client</strong> (from MetaData)</li>
+        <li><strong>Project / Task</strong> dropdown — list prefers projects active in the view week ±1</li>
+        <li><strong>Admin</strong> and <strong>Training</strong> are always available</li>
+        <li>Press <strong>+</strong>, then enter WW / Sat / Sun hours</li>
+      </ul>
+    </div>
     <img src="images/use-3-hours.png" alt="Hours"/></div>
-    <div class="card step"><div><h3><span class="step-num">4</span> Save</h3><p>Click <strong>Save estimations</strong> and wait for confirmation.</p></div>
+    <div class="card step"><div><h3><span class="step-num">4</span> Save</h3>
+      <p>Click <strong>Save estimations</strong> and wait for confirmation. Saves write to <strong>Onsite Collection Team</strong> on the team Google Sheet.</p>
+    </div>
     <img src="images/use-4-save.png" alt="Save"/></div>
     <div class="card">
+      <h3 style="margin-top:0">What changed recently (backend)</h3>
+      <ul class="easy">
+        <li>Project pickers follow a week activity window (prev / current / next week)</li>
+        <li>Client + Project/Task split is driven by the sheet <strong>MetaData</strong> tab</li>
+        <li>Managers use a separate sideload build (lock icon on this site) for team dashboards</li>
+      </ul>
+    </div>
+    <div class="card">
       <h2>Caveats &amp; troubleshooting</h2>
-      <div class="callout tip"><strong>Server delay is normal.</strong> First week load can take 10–30+ seconds.</div>
+      <div class="callout tip"><strong>Server delay is normal.</strong> First week load can take 10–30+ seconds while Google responds.</div>
       <h3>Won’t load</h3><ul class="easy"><li>Wait and reopen</li><li>Check internet</li><li>Reload the extension</li></ul>
       <h3>Save fails</h3><ul class="easy"><li>Confirm your name</li><li>Retry once</li><li>Screenshot errors for admin</li></ul>
-      <h3>Empty Client / Project lists</h3><ul class="easy"><li>Needs Apps Script 1.6.19+</li><li>Ask admin about MetaData Client table</li></ul>
+      <h3>Empty Client / Project lists</h3><ul class="easy"><li>Needs Apps Script <strong>1.6.23+</strong> (or at least 1.6.19+) and a filled MetaData Client table</li><li>Ask admin if lists stay empty</li></ul>
     </div>
   </section>
 

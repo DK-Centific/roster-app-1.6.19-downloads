@@ -327,16 +327,32 @@ if(document.getElementById(hash)) showTab(hash);
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
   const iconLocked = document.getElementById('lock-icon-locked');
   const iconUnlocked = document.getElementById('lock-icon-unlocked');
-  function showUnlockedIcon(){
+  function showUnlockedIcon(on){
+    document.body.classList.toggle('is-unlocked', !!on);
     if (iconLocked) iconLocked.toggleAttribute('hidden', !!on);
     if (iconUnlocked) iconUnlocked.toggleAttribute('hidden', !on);
   }
+  // Already unlocked this session → lock icon jumps straight to Manager
+  try {
+    if (sessionStorage.getItem(STORAGE_KEY) === '1') showUnlockedIcon(true);
+  } catch(_){}
+  lockBtn.addEventListener('click', function(e){
+    try {
+      if (sessionStorage.getItem(STORAGE_KEY) === '1') {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        location.href = 'manager/';
+        return;
+      }
+    } catch(_){}
+  }, true);
   form.addEventListener('submit', function(e){
     e.preventDefault();
-    if(input.value === PASSWORD){
+    const typed = String(input.value || '').trim();
+    if(typed === PASSWORD){
       err.textContent = '';
       try { sessionStorage.setItem(STORAGE_KEY, '1'); } catch(_){}
-      showUnlockedIcon();
+      showUnlockedIcon(true);
       closeModal();
       // brief unlocked icon flash, then open Manager guide
       setTimeout(function(){ location.href = 'manager/'; }, 180);

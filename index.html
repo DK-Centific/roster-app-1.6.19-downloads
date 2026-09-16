@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Roster App — Download &amp; Help</title>
+<style>
+:root{--bg:#12141A;--card:#1B1E27;--text:#ECEFF4;--muted:#8E95A2;--gold:#C4A574;--gold-soft:rgba(196,165,116,.18);--border:rgba(255,255,255,.08);--rose:#C48989;--ok:#8FA3B8}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.55}
+a{color:var(--gold)}.wrap{max-width:960px;margin:0 auto;padding:28px 20px 64px}
+header.hero{display:flex;gap:16px;align-items:center;margin-bottom:22px}
+.logo{width:52px;height:52px;border-radius:12px;object-fit:contain;background:#fff;padding:6px;flex-shrink:0}
+h1{margin:0 0 6px;font-size:1.75rem;letter-spacing:-.02em}.sub{color:var(--muted);margin:0}
+.badge{display:inline-block;margin-top:10px;font-size:12px;font-weight:600;letter-spacing:.04em;color:var(--gold);background:var(--gold-soft);border:1px solid rgba(196,165,116,.35);border-radius:999px;padding:4px 10px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;border-bottom:1px solid var(--border);padding-bottom:10px;margin:22px 0}
+.tabs button{appearance:none;border:1px solid transparent;background:transparent;color:var(--muted);padding:10px 14px;border-radius:10px;font:inherit;font-weight:600;cursor:pointer}
+.tabs button:hover{color:var(--text);background:rgba(255,255,255,.04)}
+.tabs button.active{color:var(--text);background:var(--card);border-color:var(--border);box-shadow:0 0 0 1px rgba(196,165,116,.25)}
+.panel{display:none}.panel.active{display:block}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;box-shadow:0 8px 28px rgba(0,0,0,.25);margin-bottom:14px}
+.card h2{margin:0 0 8px;font-size:1.2rem}.card h3{margin:18px 0 8px;font-size:1.05rem;color:var(--gold)}
+.muted{color:var(--muted)}.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+@media(max-width:900px){.grid-3{grid-template-columns:1fr}}
+.dl-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;text-decoration:none;text-align:center;background:var(--gold);color:#1a140c!important;font-weight:700;border-radius:12px;padding:14px 16px;border:0;cursor:pointer;transition:transform .12s ease,filter .12s ease}
+.dl-btn:hover{filter:brightness(1.05);transform:translateY(-1px)}
+.dl-btn.secondary{background:transparent;color:var(--text)!important;border:1px solid rgba(196,165,116,.45)}
+.browser-card{text-align:center}.browser-card .icon{width:52px;height:52px;margin:0 auto 10px;border-radius:14px;display:grid;place-items:center;font-size:24px;background:rgba(255,255,255,.04);border:1px solid var(--border)}
+.step{display:grid;gap:12px;margin-bottom:18px}.step img{width:100%;border-radius:14px;border:1px solid var(--border);background:#0d0f14}
+.step-num{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:28px;border-radius:999px;background:var(--gold-soft);color:var(--gold);font-weight:700;font-size:13px;margin-right:8px}
+ol.easy,ul.easy{padding-left:1.2rem;margin:8px 0 0}ol.easy li,ul.easy li{margin:6px 0}
+.callout{border-left:3px solid var(--gold);background:rgba(196,165,116,.08);padding:12px 14px;border-radius:0 12px 12px 0;margin:12px 0}
+.callout.warn{border-left-color:var(--rose);background:rgba(196,137,137,.1)}
+.callout.tip{border-left-color:var(--ok);background:rgba(143,163,184,.1)}
+code,kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.9em;background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:6px;padding:1px 6px}
+footer{margin-top:28px;color:var(--muted);font-size:13px;border-top:1px solid var(--border);padding-top:16px}
+
+.pills{display:flex;flex-wrap:wrap;gap:8px;padding:6px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:999px;margin:14px 0 18px}
+.pills button{appearance:none;border:0;background:transparent;color:var(--muted);padding:10px 16px;border-radius:999px;font:inherit;font-weight:700;cursor:pointer}
+.pills button.active{background:var(--gold);color:#1a140c}
+.browser-panel{display:none}.browser-panel.active{display:block}
+.grid-4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px}
+@media(max-width:980px){.grid-4{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.grid-4{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <img class="logo" src="images/centific-logo.png" alt="Centific"/>
+    <div>
+      <h1>Roster App</h1>
+      <p class="sub">Log your weekly hours in a few clicks. Version 1.6.19 for your team.</p>
+      <span class="badge">Production · Chrome/Edge · Firefox · Safari</span>
+    </div>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Guide sections">
+    <button type="button" class="active" data-tab="home" role="tab" aria-selected="true">Main</button>
+    <button type="button" data-tab="download" role="tab">Download</button>
+    <button type="button" data-tab="install" role="tab">How to install</button>
+    <button type="button" data-tab="use" role="tab">How to use</button>
+  </nav>
+
+  <section id="home" class="panel active" role="tabpanel">
+    <div class="card">
+      <h2>Welcome</h2>
+      <p>Roster App helps you enter Work Week / weekend hours and save them to the team Google Sheet.</p>
+      <ul class="easy">
+        <li><strong>Download</strong> — Chrome/MS Edge, Firefox, or Safari</li>
+        <li><strong>How to install</strong> — pick your browser with the pill bar</li>
+        <li><strong>How to use</strong> — illustrated daily steps + troubleshooting</li>
+      </ul>
+      <div class="callout tip"><strong>Need help fast?</strong> If the app feels stuck, wait 10–30 seconds — first load of a week can be slow while it talks to Google.</div>
+    </div>
+    <div class="card">
+      <h2>What you need</h2>
+      <ul class="easy">
+        <li>Chrome or Microsoft Edge, Firefox, or Safari (Mac)</li>
+        <li>Your work Google account</li>
+        <li>About 5–10 minutes for first install</li>
+      </ul>
+      <p class="muted">This guide covers the regular production Roster App (not Manager tools).</p>
+    </div>
+  </section>
+
+  <section id="download" class="panel" role="tabpanel" hidden>
+    <div class="card">
+      <h2>Download for your browser</h2>
+      <p class="muted">Buttons hide the long links.</p>
+      <div class="grid-3" style="margin-top:14px">
+        <div class="card browser-card" style="margin:0">
+          <div class="icon">🌐</div>
+          <h3 style="margin-top:0;color:var(--text)">Chrome / MS Edge</h3>
+          <p class="muted" style="font-size:13px">Same ZIP works in both browsers</p>
+          <a class="dl-btn" href="https://github.com/DK-Centific/roster-app-1.6.19-downloads/releases/download/v1.6.19-packages/chrome-roster-app-1.6.19.zip">Download for Chrome / MS Edge</a>
+          <p style="margin-top:10px"><a class="dl-btn secondary" href="https://chromewebstore.google.com/detail/roster-app/eggfaemeaioofdccpgjegnpedgjdnlcl" target="_blank" rel="noopener">Chrome Web Store</a></p>
+          <p class="muted" style="font-size:12px;margin-top:8px">Edge: after download, follow the Edge steps under How to install.</p>
+        </div>
+        <div class="card browser-card" style="margin:0">
+          <div class="icon">🦊</div>
+          <h3 style="margin-top:0;color:var(--text)">Firefox</h3>
+          <a class="dl-btn" href="https://github.com/DK-Centific/roster-app-1.6.19-downloads/releases/download/v1.6.19-packages/firefox-roster-app-1.6.19.zip">Download for Firefox</a>
+          <p style="margin-top:10px"><a class="dl-btn secondary" href="https://github.com/DK-Centific/roster-app-1.6.19-downloads/releases/download/v1.6.19-packages/roster-app-1.6.19-firefox.xpi">Download .xpi</a></p>
+        </div>
+        <div class="card browser-card" style="margin:0">
+          <div class="icon">🧭</div>
+          <h3 style="margin-top:0;color:var(--text)">Safari</h3>
+          <a class="dl-btn" href="https://github.com/DK-Centific/roster-app-1.6.19-downloads/releases/download/v1.6.19-packages/safari-roster-app-1.6.19-source.zip">Download for Safari</a>
+          <p class="muted" style="font-size:12px;margin-top:10px">Then use the Safari install guide.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="install" class="panel" role="tabpanel" hidden>
+    <div class="card">
+      <h2>How to install</h2>
+      <p class="muted">Choose your browser. Steps stay on this page (Safari also has a full dedicated guide).</p>
+      <div class="pills" role="tablist" aria-label="Browser install guides">
+        <button type="button" class="active" data-browser="chrome">Chrome</button>
+        <button type="button" data-browser="edge">Edge</button>
+        <button type="button" data-browser="safari">Safari</button>
+        <button type="button" data-browser="firefox">Firefox</button>
+      </div>
+    </div>
+
+    <div id="install-chrome" class="browser-panel active">
+      <div class="card step"><div><h3><span class="step-num">1</span> Download the ZIP</h3><p>Download tab → <strong>Download for Chrome / MS Edge</strong>.</p></div>
+      <img src="images/step-1-download.png" alt="Download ZIP"/></div>
+      <div class="card step"><div><h3><span class="step-num">2</span> Unzip</h3><p>Get a folder that contains <code>manifest.json</code>.</p></div>
+      <img src="images/step-2-unzip.png" alt="Unzip"/></div>
+      <div class="card step"><div><h3><span class="step-num">3</span> Developer mode ON</h3><ol class="easy"><li>Open Chrome</li><li>Go to <kbd>chrome://extensions</kbd></li><li>Turn <strong>Developer mode</strong> ON</li></ol></div>
+      <img src="images/step-3-devmode.png" alt="Developer mode"/></div>
+      <div class="card step"><div><h3><span class="step-num">4</span> Load unpacked</h3><ol class="easy"><li>Click <strong>Load unpacked</strong></li><li>Select the unzipped <strong>folder</strong> (not the ZIP)</li></ol>
+      <div class="callout warn"><strong>Common mistake:</strong> Select the folder after unzipping.</div></div>
+      <img src="images/step-4-load.png" alt="Load unpacked"/></div>
+      <div class="card step"><div><h3><span class="step-num">5</span> Pin Roster App</h3><p>Puzzle icon → pin <strong>Roster App</strong> → click to open.</p></div>
+      <img src="images/step-5-pin.png" alt="Pin extension"/></div>
+    </div>
+
+    <div id="install-edge" class="browser-panel">
+      <div class="card">
+        <h3 style="margin-top:0">Microsoft Edge</h3>
+        <p>Edge uses the same ZIP as Chrome. Steps are almost identical.</p>
+      </div>
+      <div class="card step"><div><h3><span class="step-num">1</span> Download for Edge</h3><p>Download tab → <strong>Download for Chrome / MS Edge</strong> (same ZIP for both).</p></div>
+      <img src="images/step-1-download.png" alt="Download"/></div>
+      <div class="card step"><div><h3><span class="step-num">2</span> Unzip</h3><p>Find the folder with <code>manifest.json</code>.</p></div>
+      <img src="images/step-2-unzip.png" alt="Unzip"/></div>
+      <div class="card step"><div><h3><span class="step-num">3</span> Open Edge extensions</h3>
+        <ol class="easy">
+          <li>Open Microsoft Edge</li>
+          <li>In the address bar type <kbd>edge://extensions</kbd> and press Enter</li>
+          <li>Turn <strong>Developer mode</strong> ON</li>
+        </ol>
+      </div>
+      <img src="images/edge-step-devmode.png" alt="Edge extensions developer mode"/></div>
+      <div class="card step"><div><h3><span class="step-num">4</span> Load unpacked</h3>
+        <ol class="easy">
+          <li>Click <strong>Load unpacked</strong></li>
+          <li>Select the unzipped folder</li>
+        </ol>
+        <div class="callout tip">If Edge asks to allow extensions from other stores, you can turn that on — for Load unpacked you mainly need Developer mode.</div>
+      </div>
+      <img src="images/step-4-load.png" alt="Load unpacked"/></div>
+      <div class="card step"><div><h3><span class="step-num">5</span> Pin &amp; open</h3><p>Extensions puzzle menu → pin <strong>Roster App</strong>.</p></div>
+      <img src="images/step-5-pin.png" alt="Pin"/></div>
+    </div>
+
+    <div id="install-safari" class="browser-panel">
+      <div class="card">
+        <h3 style="margin-top:0">Safari (Mac)</h3>
+        <p>Safari needs a few extra Mac steps. Use the dedicated illustrated guide:</p>
+        <p style="margin-top:12px"><a class="dl-btn" href="safari-install.html">Open Safari install guide</a></p>
+        <p class="muted" style="margin-top:12px">Quick preview:</p>
+      </div>
+      <div class="card step"><div><h3><span class="step-num">1</span> Allow unsigned extensions</h3><p>Safari → Develop → Allow Unsigned Extensions (for testing).</p></div>
+      <img src="images/safari-1-unsigned.png" alt="Safari unsigned"/></div>
+      <div class="card step"><div><h3><span class="step-num">2</span> Enable Roster App</h3><p>Safari Settings → Extensions → turn Roster App ON.</p></div>
+      <img src="images/safari-2-enable.png" alt="Safari enable"/></div>
+      <div class="card">
+        <p><a class="dl-btn secondary" href="safari-install.html">Open full Safari install guide</a></p>
+      </div>
+    </div>
+
+    <div id="install-firefox" class="browser-panel">
+      <div class="card">
+        <h3 style="margin-top:0">Firefox</h3>
+        <ol class="easy">
+          <li>Download the Firefox ZIP or .xpi</li>
+          <li>Open <kbd>about:debugging#/runtime/this-firefox</kbd></li>
+          <li>Click <strong>Load Temporary Add-on…</strong></li>
+          <li>Pick <code>manifest.json</code> or the .xpi file</li>
+        </ol>
+        <div class="callout warn">Temporary Firefox add-ons clear when you fully quit Firefox.</div>
+      </div>
+      <div class="card step"><div><h3><span class="step-num">1</span> Download</h3><p>Use Download for Firefox.</p></div>
+      <img src="images/step-1-download.png" alt="Download"/></div>
+      <div class="card step"><div><h3><span class="step-num">2</span> Unzip (if ZIP)</h3><p>Find <code>manifest.json</code>.</p></div>
+      <img src="images/step-2-unzip.png" alt="Unzip"/></div>
+    </div>
+  </section>
+
+  <section id="use" class="panel" role="tabpanel" hidden>
+    <div class="card"><h2>How to use</h2><p class="muted">Illustrated steps — same style as install.</p></div>
+    <div class="card step"><div><h3><span class="step-num">1</span> Open Roster App</h3><p>Click the toolbar icon (pin it if needed).</p></div>
+    <img src="images/use-1-open.png" alt="Open"/></div>
+    <div class="card step"><div><h3><span class="step-num">2</span> Choose your name</h3><p>Search and select your name the first time.</p></div>
+    <img src="images/use-2-name.png" alt="Name"/></div>
+    <div class="card step"><div><h3><span class="step-num">3</span> Add projects &amp; hours</h3><ul class="easy"><li>Optional Client</li><li>Project / Task</li><li>Press +</li><li>Enter hours</li></ul></div>
+    <img src="images/use-3-hours.png" alt="Hours"/></div>
+    <div class="card step"><div><h3><span class="step-num">4</span> Save</h3><p>Click <strong>Save estimations</strong> and wait for confirmation.</p></div>
+    <img src="images/use-4-save.png" alt="Save"/></div>
+    <div class="card">
+      <h2>Caveats &amp; troubleshooting</h2>
+      <div class="callout tip"><strong>Server delay is normal.</strong> First week load can take 10–30+ seconds.</div>
+      <h3>Won’t load</h3><ul class="easy"><li>Wait and reopen</li><li>Check internet</li><li>Reload the extension</li></ul>
+      <h3>Save fails</h3><ul class="easy"><li>Confirm your name</li><li>Retry once</li><li>Screenshot errors for admin</li></ul>
+      <h3>Empty Client / Project lists</h3><ul class="easy"><li>Needs Apps Script 1.6.19+</li><li>Ask admin about MetaData Client table</li></ul>
+    </div>
+  </section>
+
+  <footer>Centific · Roster App 1.6.19 · Internal team guide</footer>
+</div>
+<script>
+const tabs=[...document.querySelectorAll('.tabs button')];
+const panels=[...document.querySelectorAll('.panel')];
+function showTab(id){
+  tabs.forEach(b=>{const on=b.dataset.tab===id;b.classList.toggle('active',on);b.setAttribute('aria-selected',on?'true':'false');});
+  panels.forEach(p=>{const on=p.id===id;p.classList.toggle('active',on);p.hidden=!on;});
+  history.replaceState(null,'','#'+id);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));
+const pills=[...document.querySelectorAll('.pills button')];
+const browserPanels=[...document.querySelectorAll('.browser-panel')];
+function showBrowser(id){
+  pills.forEach(b=>b.classList.toggle('active',b.dataset.browser===id));
+  browserPanels.forEach(p=>p.classList.toggle('active',p.id==='install-'+id));
+}
+pills.forEach(b=>b.addEventListener('click',()=>showBrowser(b.dataset.browser)));
+const hash=(location.hash||'#home').slice(1);
+if(document.getElementById(hash)) showTab(hash);
+</script>
+</body></html>

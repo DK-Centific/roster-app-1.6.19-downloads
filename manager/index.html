@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Roster Manager — Guide (restricted)</title>
+<style>
+:root{--bg:#12141A;--card:#1B1E27;--text:#ECEFF4;--muted:#8E95A2;--gold:#C4A574;--gold-soft:rgba(196,165,116,.18);--border:rgba(255,255,255,.08);--rose:#C48989;--ok:#8FA3B8}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.55}
+a{color:var(--gold)}.wrap{max-width:960px;margin:0 auto;padding:28px 20px 64px}
+header.hero{display:flex;gap:16px;align-items:center;margin-bottom:22px}
+.logo{width:52px;height:52px;border-radius:12px;object-fit:contain;background:transparent;padding:0;flex-shrink:0}
+h1{margin:0 0 6px;font-size:1.75rem;letter-spacing:-.02em}.sub{color:var(--muted);margin:0}
+.badge{display:inline-block;margin-top:10px;font-size:12px;font-weight:600;letter-spacing:.04em;color:var(--gold);background:var(--gold-soft);border:1px solid rgba(196,165,116,.35);border-radius:999px;padding:4px 10px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;border-bottom:1px solid var(--border);padding-bottom:10px;margin:22px 0}
+.tabs button{appearance:none;border:1px solid transparent;background:transparent;color:var(--muted);padding:10px 14px;border-radius:10px;font:inherit;font-weight:600;cursor:pointer}
+.tabs button:hover{color:var(--text);background:rgba(255,255,255,.04)}
+.tabs button.active{color:var(--text);background:var(--card);border-color:var(--border);box-shadow:0 0 0 1px rgba(196,165,116,.25)}
+.panel{display:none}.panel.active{display:block}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;box-shadow:0 8px 28px rgba(0,0,0,.25);margin-bottom:14px}
+.card h2{margin:0 0 8px;font-size:1.2rem}.card h3{margin:18px 0 8px;font-size:1.05rem;color:var(--gold)}
+.muted{color:var(--muted)}.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+@media(max-width:900px){.grid-3{grid-template-columns:1fr}}
+.dl-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;text-decoration:none;text-align:center;background:var(--gold);color:#1a140c!important;font-weight:700;border-radius:12px;padding:14px 16px;border:0;cursor:pointer;transition:transform .12s ease,filter .12s ease}
+.dl-btn:hover{filter:brightness(1.05);transform:translateY(-1px)}
+.dl-btn.secondary{background:transparent;color:var(--text)!important;border:1px solid rgba(196,165,116,.45)}
+.browser-card{text-align:center}.browser-card .icon{width:52px;height:52px;margin:0 auto 10px;border-radius:14px;display:grid;place-items:center;font-size:24px;background:rgba(255,255,255,.04);border:1px solid var(--border)}
+.step{display:grid;gap:12px;margin-bottom:18px}.step img{width:100%;border-radius:14px;border:1px solid var(--border);background:#0d0f14}
+.step-num{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:28px;border-radius:999px;background:var(--gold-soft);color:var(--gold);font-weight:700;font-size:13px;margin-right:8px}
+ol.easy,ul.easy{padding-left:1.2rem;margin:8px 0 0}ol.easy li,ul.easy li{margin:6px 0}
+.callout{border-left:3px solid var(--gold);background:rgba(196,165,116,.08);padding:12px 14px;border-radius:0 12px 12px 0;margin:12px 0}
+.callout.warn{border-left-color:var(--rose);background:rgba(196,137,137,.1)}
+.callout.tip{border-left-color:var(--ok);background:rgba(143,163,184,.1)}
+code,kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.9em;background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:6px;padding:1px 6px}
+footer{margin-top:28px;color:var(--muted);font-size:13px;border-top:1px solid var(--border);padding-top:16px}
+.pills{display:flex;flex-wrap:wrap;gap:8px;padding:6px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:999px;margin:14px 0 18px}
+.pills button{appearance:none;border:0;background:transparent;color:var(--muted);padding:10px 16px;border-radius:999px;font:inherit;font-weight:700;cursor:pointer}
+.pills button.active{background:var(--gold);color:#1a140c}
+.browser-panel{display:none}.browser-panel.active{display:block}
+
+/* Lock control */
+.lock-btn{position:fixed;top:16px;right:16px;z-index:50;width:46px;height:46px;border-radius:14px;border:1px solid var(--border);background:var(--card);color:var(--gold);display:grid;place-items:center;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.lock-btn:hover{border-color:rgba(196,165,116,.45);filter:brightness(1.08)}
+.lock-btn svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+/* Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(8,10,14,.72);backdrop-filter:blur(4px);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal{width:min(420px,100%);background:var(--card);border:1px solid var(--border);border-radius:18px;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.45)}
+.modal h2{margin:0 0 6px;font-size:1.2rem}
+.modal p{margin:0 0 14px;color:var(--muted)}
+.modal input[type=password]{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--border);background:#0d0f14;color:var(--text);font:inherit;margin-bottom:10px}
+.modal input[type=password]:focus{outline:2px solid rgba(196,165,116,.45);border-color:transparent}
+.modal-actions{display:flex;gap:10px;margin-top:8px}
+.modal-actions button{flex:1;padding:12px 14px;border-radius:12px;font:inherit;font-weight:700;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text)}
+.modal-actions button.primary{background:var(--gold);color:#1a140c;border:0}
+.modal-error{color:var(--rose);font-size:14px;min-height:1.2em;margin:0 0 4px}
+
+/* Locked teaser */
+#locked-view .lock-hero{text-align:center;padding:28px 12px}
+#locked-view .lock-hero .big-lock{width:64px;height:64px;margin:0 auto 14px;border-radius:18px;display:grid;place-items:center;background:var(--gold-soft);border:1px solid rgba(196,165,116,.35);color:var(--gold)}
+#locked-view .lock-hero .big-lock svg{width:32px;height:32px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+#unlocked-view{display:none}
+body.is-unlocked #locked-view{display:none}
+body.is-unlocked #unlocked-view{display:block}
+body.is-unlocked .badge-locked{display:none}
+body:not(.is-unlocked) .badge-unlocked{display:none}
+</style>
+</head>
+<body>
+<button type="button" class="lock-btn" id="lock-btn" aria-label="Unlock Manager guide" title="Manager access">
+  <svg id="lock-icon-locked" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+  <svg id="lock-icon-unlocked" viewBox="0 0 24 24" aria-hidden="true" hidden><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 7.5-1.9"/></svg>
+</button>
+
+<div class="modal-overlay" id="pw-modal" role="dialog" aria-modal="true" aria-labelledby="pw-title">
+  <div class="modal" role="document">
+    <h2 id="pw-title">Manager access</h2>
+    <p>Enter the Manager guide password to unlock download, install, and use instructions.</p>
+    <form id="pw-form" autocomplete="off">
+      <label class="sr-only" for="pw-input" style="position:absolute;left:-9999px">Password</label>
+      <input id="pw-input" type="password" name="password" placeholder="Password" autocomplete="current-password" required/>
+      <p class="modal-error" id="pw-error" role="alert" aria-live="polite"></p>
+      <div class="modal-actions">
+        <button type="button" id="pw-cancel">Cancel</button>
+        <button type="submit" class="primary">Unlock</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="wrap">
+  <header class="hero">
+    <img class="logo" src="images/centific-logo.png" alt="Centific"/>
+    <div>
+      <h1>Roster Manager</h1>
+      <p class="sub" id="hero-sub">Manager access required. Unlock to view the Manager 1.7.1 guide.</p>
+      <span class="badge badge-locked">Restricted · Manager access required</span>
+      <span class="badge badge-unlocked">Manager · Sideload 1.7.1 · Chrome / Edge</span>
+    </div>
+  </header>
+
+  <!-- ========== LOCKED TEASER ========== -->
+  <div id="locked-view">
+    <div class="card lock-hero">
+      <div class="big-lock" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+      </div>
+      <h2 style="margin-top:0">This page is restricted</h2>
+      <p class="muted">Roster Manager includes IC time entry plus Manager view (Needs attention dashboard and full team density). Download links and install/use steps are hidden until you unlock.</p>
+      <p style="margin-top:18px"><button type="button" class="dl-btn" id="locked-unlock-cta" style="max-width:280px;margin:0 auto">Enter password</button></p>
+      <div class="callout tip" style="text-align:left;margin-top:20px"><strong>Looking for the regular Roster App?</strong> Use the public IC production guide on this site’s root — it does not include Manager packages.</div>
+    </div>
+    <div class="card">
+      <h2>What unlocks</h2>
+      <ul class="easy">
+        <li>Download for Roster Manager 1.7.1 (Chrome / MS Edge sideload)</li>
+        <li>How to install via Load unpacked</li>
+        <li>How to use Manager view (Screen C → Screen B) and time entry</li>
+      </ul>
+      <p class="muted">No Manager downloads or install details are shown while locked.</p>
+    </div>
+  </div>
+
+  <!-- ========== UNLOCKED MANAGER CONTENT ========== -->
+  <div id="unlocked-view">
+  <nav class="tabs" role="tablist" aria-label="Guide sections">
+    <button type="button" class="active" data-tab="home" role="tab" aria-selected="true">Main</button>
+    <button type="button" data-tab="download" role="tab">Download</button>
+    <button type="button" data-tab="install" role="tab">How to install</button>
+    <button type="button" data-tab="use" role="tab">How to use</button>
+  </nav>
+
+  <section id="home" class="panel active" role="tabpanel">
+    <div class="card">
+      <h2>Welcome, managers</h2>
+      <p><strong>Roster Manager 1.7.1</strong> is a sideload package that includes IC time entry <em>plus</em> Manager view.</p>
+      <ul class="easy">
+        <li><strong>Download</strong> — Chrome / MS Edge sideload ZIP</li>
+        <li><strong>How to install</strong> — Developer mode → Load unpacked</li>
+        <li><strong>How to use</strong> — Manager view lands on Screen C (Needs attention), then Screen B for full team / By Project</li>
+      </ul>
+      <div class="callout tip"><strong>First team-week load</strong> can take 10–30 seconds while the app talks to Google. Wait before retrying.</div>
+    </div>
+    <div class="card">
+      <h2>What you need</h2>
+      <ul class="easy">
+        <li>Chrome or Microsoft Edge (Manager is Chrome/Edge sideload for now)</li>
+        <li>Your work Google account</li>
+        <li>About 5–10 minutes for first install</li>
+        <li>Prefer this sideload build for managers — do not stack it on top of the production Chrome Web Store build without removing/reloading carefully</li>
+      </ul>
+      <p class="muted">Firefox Manager package is not available yet. Safari is not available (needs Xcode conversion).</p>
+    </div>
+  </section>
+
+  <section id="download" class="panel" role="tabpanel" hidden>
+    <div class="card">
+      <h2>Download Roster Manager 1.7.1</h2>
+      <p class="muted">Public release assets — no GitHub login required. Sideload only (not Chrome Web Store).</p>
+      <div class="grid-3" style="margin-top:14px">
+        <div class="card browser-card" style="margin:0">
+          <div class="icon">🌐</div>
+          <h3 style="margin-top:0;color:var(--text)">Chrome / MS Edge</h3>
+          <p class="muted" style="font-size:13px">Primary sideload ZIP for both browsers</p>
+          <a class="dl-btn" href="https://github.com/DK-Centific/roster-app-1.6.19-downloads/releases/download/v1.6.19-packages/Roster-Manager-1.7.1-sideload.zip">Download Manager 1.7.1</a>
+          <p class="muted" style="font-size:12px;margin-top:10px">Package: <code>Roster-Manager-1.7.1-sideload.zip</code></p>
+        </div>
+        <div class="card browser-card" style="margin:0">
+          <div class="icon">🦊</div>
+          <h3 style="margin-top:0;color:var(--text)">Firefox</h3>
+          <p class="muted" style="font-size:13px;margin-top:8px">No Manager Firefox package on this release yet. Use Chrome or Edge sideload for Manager.</p>
+        </div>
+        <div class="card browser-card" style="margin:0">
+          <div class="icon">🧭</div>
+          <h3 style="margin-top:0;color:var(--text)">Safari</h3>
+          <p class="muted" style="font-size:13px;margin-top:8px">Not available for Manager. Safari needs an Xcode conversion step that is not provided for this build.</p>
+        </div>
+      </div>
+      <div class="callout tip" style="margin-top:14px"><strong>Same build note:</strong> An alternate filename <code>manager-roster-1.7.1.zip</code> may appear on the release; use the primary <strong>Roster-Manager-1.7.1-sideload.zip</strong> button above.</div>
+    </div>
+  </section>
+
+  <section id="install" class="panel" role="tabpanel" hidden>
+    <div class="card">
+      <h2>How to install (sideload)</h2>
+      <p class="muted">Manager is installed with <strong>Load unpacked</strong> — not from the Chrome Web Store. Choose your browser.</p>
+      <div class="pills" role="tablist" aria-label="Browser install guides">
+        <button type="button" class="active" data-browser="chrome">Chrome</button>
+        <button type="button" data-browser="edge">Edge</button>
+        <button type="button" data-browser="other">Firefox / Safari</button>
+      </div>
+      <div class="callout warn"><strong>Important:</strong> If you already have the production Roster App from the Chrome Web Store, remove it or disable it before sideloading Manager, then reload carefully. Managers should use this sideload build.</div>
+    </div>
+
+    <div id="install-chrome" class="browser-panel active">
+      <div class="card step"><div><h3><span class="step-num">1</span> Download the ZIP</h3><p>Download tab → <strong>Download Manager 1.7.1</strong> (<code>Roster-Manager-1.7.1-sideload.zip</code>).</p></div>
+      <img src="images/step-1-download.png" alt="Download ZIP"/></div>
+      <div class="card step"><div><h3><span class="step-num">2</span> Unzip</h3><p>Get a folder that contains <code>manifest.json</code>.</p></div>
+      <img src="images/step-2-unzip.png" alt="Unzip"/></div>
+      <div class="card step"><div><h3><span class="step-num">3</span> Developer mode ON</h3><ol class="easy"><li>Open Chrome</li><li>Go to <kbd>chrome://extensions</kbd></li><li>Turn <strong>Developer mode</strong> ON</li></ol></div>
+      <img src="images/step-3-devmode.png" alt="Developer mode"/></div>
+      <div class="card step"><div><h3><span class="step-num">4</span> Load unpacked</h3><ol class="easy"><li>Click <strong>Load unpacked</strong></li><li>Select the unzipped <strong>folder</strong> (not the ZIP)</li></ol>
+      <div class="callout warn"><strong>Common mistake:</strong> Select the folder after unzipping.</div></div>
+      <img src="images/step-4-load.png" alt="Load unpacked"/></div>
+      <div class="card step"><div><h3><span class="step-num">5</span> Pin Roster Manager</h3><p>Puzzle icon → pin <strong>Roster Manager</strong> → click to open.</p></div>
+      <img src="images/step-5-pin.png" alt="Pin extension"/></div>
+      <div class="card">
+        <h3 style="margin-top:0">Updating later</h3>
+        <p>Sideload updates require replacing the unpacked folder contents and clicking <strong>Reload</strong> on the extension card at <kbd>chrome://extensions</kbd>.</p>
+      </div>
+    </div>
+
+    <div id="install-edge" class="browser-panel">
+      <div class="card">
+        <h3 style="margin-top:0">Microsoft Edge</h3>
+        <p>Edge uses the same Manager ZIP as Chrome. Steps are almost identical.</p>
+      </div>
+      <div class="card step"><div><h3><span class="step-num">1</span> Download for Edge</h3><p>Download tab → <strong>Download Manager 1.7.1</strong> (same ZIP for Chrome and Edge).</p></div>
+      <img src="images/step-1-download.png" alt="Download"/></div>
+      <div class="card step"><div><h3><span class="step-num">2</span> Unzip</h3><p>Find the folder with <code>manifest.json</code>.</p></div>
+      <img src="images/step-2-unzip.png" alt="Unzip"/></div>
+      <div class="card step"><div><h3><span class="step-num">3</span> Open Edge extensions</h3>
+        <ol class="easy">
+          <li>Open Microsoft Edge</li>
+          <li>In the address bar type <kbd>edge://extensions</kbd> and press Enter</li>
+          <li>Turn <strong>Developer mode</strong> ON</li>
+        </ol>
+      </div>
+      <img src="images/edge-step-devmode.png" alt="Edge extensions developer mode"/></div>
+      <div class="card step"><div><h3><span class="step-num">4</span> Load unpacked</h3>
+        <ol class="easy">
+          <li>Click <strong>Load unpacked</strong></li>
+          <li>Select the unzipped folder</li>
+        </ol>
+      </div>
+      <img src="images/step-4-load.png" alt="Load unpacked"/></div>
+      <div class="card step"><div><h3><span class="step-num">5</span> Pin &amp; open</h3><p>Extensions puzzle menu → pin <strong>Roster Manager</strong>.</p></div>
+      <img src="images/step-5-pin.png" alt="Pin"/></div>
+    </div>
+
+    <div id="install-other" class="browser-panel">
+      <div class="card">
+        <h3 style="margin-top:0">Firefox &amp; Safari</h3>
+        <div class="callout warn"><strong>Manager is Chrome / Edge sideload for now.</strong> There is no Manager Firefox package on the current release, and Safari is not available (needs Xcode conversion).</div>
+        <p>For the regular IC Roster App on Firefox/Safari, use the public production guide instead.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="use" class="panel" role="tabpanel" hidden>
+    <div class="card"><h2>How to use Manager</h2><p class="muted">After install: open the extension → log in as usual → click <strong>Manager view</strong> → you land on <strong>Screen C</strong> (Needs attention).</p></div>
+
+    <div class="card step"><div><h3><span class="step-num">1</span> Open Roster Manager &amp; choose your name</h3><p>Click the toolbar icon (pin it if needed). Search and select your name the first time — same login flow as IC time entry.</p></div>
+    <img src="images/mgr-use-1-open.png" alt="Open Roster Manager"/></div>
+
+    <div class="card step"><div><h3><span class="step-num">2</span> Click Manager view</h3><p>On the home nudge, use <strong>Manager view</strong> (alongside Plan my week). This opens the manager experience.</p></div>
+    <img src="images/mgr-use-2-manager-view.png" alt="Click Manager view"/></div>
+
+    <div class="card step"><div><h3><span class="step-num">3</span> Screen C — Needs attention</h3>
+      <p>You land on the <strong>Needs attention</strong> dashboard: submitted ratio, Missing / Incomplete lists, Follow up, and optional <strong>View in browser</strong> for a full-tab grid.</p>
+      <ul class="easy"><li>Scan Missing and Incomplete</li><li>Use week chevrons to change weeks</li><li>Open sheet / Export Excel when needed</li></ul>
+    </div>
+    <img src="images/mgr-use-3-screen-c.png" alt="Screen C Needs attention"/></div>
+
+    <div class="card step"><div><h3><span class="step-num">4</span> Screen B — full team / By Project</h3>
+      <p>From Screen C choose <strong>Show full team →</strong> to open Screen B: KPIs, density view, and <strong>By Project</strong> tiles. You can return with <strong>Needs attention</strong>.</p>
+    </div>
+    <img src="images/mgr-use-4-screen-b.png" alt="Screen B full team"/></div>
+
+    <div class="card step"><div><h3><span class="step-num">5</span> Optional: back to time entry</h3>
+      <p>Use <strong>← Back</strong> to return to IC weekly estimation. Client is optional; Project/Task dropdowns apply; <strong>Admin &amp; Training</strong> is always available.</p>
+    </div>
+    <img src="images/mgr-use-5-time-entry.png" alt="Time entry"/></div>
+
+    <div class="card">
+      <h3 style="margin-top:0">Time entry details (still included)</h3>
+      <ul class="easy">
+        <li>Optional <strong>Client</strong> + <strong>Project/Task</strong> dropdowns</li>
+        <li><strong>Admin &amp; Training</strong> always in the list</li>
+        <li>Enter WW / Sat / Sun hours → <strong>Save estimations</strong></li>
+      </ul>
+      <p class="muted">Familiar IC illustrations (also accurate for Manager time entry):</p>
+      <div class="grid-3" style="margin-top:12px">
+        <div><img src="images/use-2-name.png" alt="Choose name" style="width:100%;border-radius:12px;border:1px solid var(--border)"/></div>
+        <div><img src="images/use-3-hours.png" alt="Hours" style="width:100%;border-radius:12px;border:1px solid var(--border)"/></div>
+        <div><img src="images/use-4-save.png" alt="Save" style="width:100%;border-radius:12px;border:1px solid var(--border)"/></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Caveats &amp; troubleshooting</h2>
+      <div class="callout tip"><strong>Server / sheet delay is normal.</strong> First team-week load can take 10–30 seconds. Wait before retrying.</div>
+      <div class="callout warn"><strong>Sideload updates:</strong> Replace the unpacked folder and reload the extension. Do not install Manager over the production CWS build without removing/reloading carefully.</div>
+      <h3>Won’t load / blank Manager</h3><ul class="easy"><li>Wait 10–30s on first week</li><li>Check internet</li><li>Reload the extension on the extensions page</li></ul>
+      <h3>Save fails (time entry)</h3><ul class="easy"><li>Confirm your name</li><li>Retry once after a short wait</li><li>Screenshot errors for admin</li></ul>
+      <h3>Empty Client / Project lists</h3><ul class="easy"><li>Needs matching Apps Script / MetaData Client table</li><li>Ask admin if lists stay empty</li></ul>
+    </div>
+  </section>
+
+  <footer>Centific · Roster Manager 1.7.1 · Internal Manager guide (password-gated)</footer>
+  </div><!-- /unlocked-view -->
+
+  <footer id="locked-footer" style="display:none"></footer>
+</div>
+
+<script>
+(function(){
+  const STORAGE_KEY = 'rosterManagerGuideUnlocked';
+  const PASSWORD = 'boss-access';
+  const body = document.body;
+  const lockBtn = document.getElementById('lock-btn');
+  const iconLocked = document.getElementById('lock-icon-locked');
+  const iconUnlocked = document.getElementById('lock-icon-unlocked');
+  const modal = document.getElementById('pw-modal');
+  const form = document.getElementById('pw-form');
+  const input = document.getElementById('pw-input');
+  const err = document.getElementById('pw-error');
+  const heroSub = document.getElementById('hero-sub');
+  const cancelBtn = document.getElementById('pw-cancel');
+  const lockedCta = document.getElementById('locked-unlock-cta');
+
+  function isUnlocked(){ return sessionStorage.getItem(STORAGE_KEY) === '1'; }
+
+  function applyUnlocked(on){
+    body.classList.toggle('is-unlocked', on);
+    iconLocked.hidden = !!on;
+    iconUnlocked.hidden = !on;
+    lockBtn.setAttribute('aria-label', on ? 'Lock Manager guide' : 'Unlock Manager guide');
+    lockBtn.title = on ? 'Lock guide' : 'Manager access';
+    heroSub.textContent = on
+      ? 'IC time entry plus Manager view. Version 1.7.1 sideload for managers.'
+      : 'Manager access required. Unlock to view the Manager 1.7.1 guide.';
+  }
+
+  function openModal(){
+    err.textContent = '';
+    input.value = '';
+    modal.classList.add('open');
+    setTimeout(()=>input.focus(), 30);
+  }
+  function closeModal(){
+    modal.classList.remove('open');
+    err.textContent = '';
+  }
+
+  function unlock(){
+    sessionStorage.setItem(STORAGE_KEY, '1');
+    applyUnlocked(true);
+    closeModal();
+    showTab('home');
+  }
+  function lock(){
+    sessionStorage.removeItem(STORAGE_KEY);
+    applyUnlocked(false);
+    closeModal();
+  }
+
+  lockBtn.addEventListener('click', ()=>{
+    if(isUnlocked()) lock();
+    else openModal();
+  });
+  lockedCta.addEventListener('click', openModal);
+  cancelBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
+  document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+
+  form.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    if(input.value === PASSWORD){
+      err.textContent = '';
+      unlock();
+    } else {
+      err.textContent = 'Incorrect password. Try again.';
+      input.select();
+    }
+  });
+
+  // Tabs (unlocked content)
+  const tabs=[...document.querySelectorAll('.tabs button')];
+  const panels=[...document.querySelectorAll('.panel')];
+  function showTab(id){
+    tabs.forEach(b=>{const on=b.dataset.tab===id;b.classList.toggle('active',on);b.setAttribute('aria-selected',on?'true':'false');});
+    panels.forEach(p=>{const on=p.id===id;p.classList.toggle('active',on);p.hidden=!on;});
+    if(isUnlocked()) history.replaceState(null,'','#'+id);
+  }
+  tabs.forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));
+
+  const pills=[...document.querySelectorAll('.pills button')];
+  const browserPanels=[...document.querySelectorAll('.browser-panel')];
+  function showBrowser(id){
+    pills.forEach(b=>b.classList.toggle('active',b.dataset.browser===id));
+    browserPanels.forEach(p=>{
+      const want = (id==='other') ? 'install-other' : ('install-'+id);
+      p.classList.toggle('active', p.id===want);
+    });
+  }
+  pills.forEach(b=>b.addEventListener('click',()=>showBrowser(b.dataset.browser)));
+
+  // Init
+  applyUnlocked(isUnlocked());
+  if(isUnlocked()){
+    const hash=(location.hash||'#home').slice(1);
+    if(document.getElementById(hash)) showTab(hash);
+  }
+})();
+</script>
+</body></html>

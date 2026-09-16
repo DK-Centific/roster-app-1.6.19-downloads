@@ -45,6 +45,8 @@ footer{margin-top:28px;color:var(--muted);font-size:13px;border-top:1px solid va
 .lock-btn:hover{border-color:rgba(196,165,116,.45);filter:brightness(1.08)}
 .lock-btn svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;display:block;grid-area:1/1}
 .lock-btn svg[hidden]{display:none!important}
+body.is-unlocked #lock-icon-locked{display:none!important}
+body:not(.is-unlocked) #lock-icon-unlocked{display:none!important}
 .lock-btn{grid-template-areas:"icon"}
 .modal-overlay{position:fixed;inset:0;background:rgba(8,10,14,.72);backdrop-filter:blur(4px);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
 .modal-overlay.open{display:flex}
@@ -62,13 +64,13 @@ footer{margin-top:28px;color:var(--muted);font-size:13px;border-top:1px solid va
 <body>
 
 <button type="button" class="lock-btn" id="lock-btn" aria-label="Manager access" title="Manager access">
-  <svg id="lock-icon-locked" viewBox="0 0 24 24" aria-hidden="true">
-    <rect x="5" y="11" width="14" height="10" rx="2"/>
-    <path d="M8 11V8a4 4 0 0 1 8 0v3"/>
+    <svg id="lock-icon-locked" viewBox="0 0 24 24" aria-hidden="true">
+    <rect x="3" y="11" width="18" height="11" rx="2"/>
+    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
   </svg>
   <svg id="lock-icon-unlocked" viewBox="0 0 24 24" aria-hidden="true" hidden>
-    <rect x="5" y="11" width="14" height="10" rx="2"/>
-    <path d="M8 11V7a4 4 0 0 1 8 0"/>
+    <rect x="3" y="11" width="18" height="11" rx="2"/>
+    <path d="M7 11V7a5 5 0 0 1 9.9-1"/>
   </svg>
 </button>
 <div class="modal-overlay" id="pw-modal" role="dialog" aria-modal="true" aria-labelledby="pw-title">
@@ -309,8 +311,8 @@ if(document.getElementById(hash)) showTab(hash);
   const iconLocked = document.getElementById('lock-icon-locked');
   const iconUnlocked = document.getElementById('lock-icon-unlocked');
   function showUnlockedIcon(){
-    if (iconLocked) { iconLocked.hidden = true; iconLocked.style.display = 'none'; }
-    if (iconUnlocked) { iconUnlocked.hidden = false; iconUnlocked.style.display = 'block'; }
+    if (iconLocked) iconLocked.toggleAttribute('hidden', !!on);
+    if (iconUnlocked) iconUnlocked.toggleAttribute('hidden', !on);
   }
   form.addEventListener('submit', function(e){
     e.preventDefault();

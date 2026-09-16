@@ -42,6 +42,8 @@ footer{margin-top:28px;color:var(--muted);font-size:13px;border-top:1px solid va
 .lock-btn:hover{border-color:rgba(196,165,116,.45);filter:brightness(1.08)}
 .lock-btn svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;display:block;grid-area:1/1}
 .lock-btn svg[hidden]{display:none!important}
+body.is-unlocked #lock-icon-locked{display:none!important}
+body:not(.is-unlocked) #lock-icon-unlocked{display:none!important}
 .lock-btn{grid-template-areas:"icon"}
 
 /* Modal */
@@ -70,14 +72,14 @@ body:not(.is-unlocked) .badge-unlocked{display:none}
 </head>
 <body>
 <button type="button" class="lock-btn" id="lock-btn" aria-label="Unlock Manager guide" title="Manager access">
-  <svg id="lock-icon-locked" viewBox="0 0 24 24" aria-hidden="true">
-  <rect x="5" y="11" width="14" height="10" rx="2"/>
-  <path d="M8 11V8a4 4 0 0 1 8 0v3"/>
-</svg>
+    <svg id="lock-icon-locked" viewBox="0 0 24 24" aria-hidden="true">
+    <rect x="3" y="11" width="18" height="11" rx="2"/>
+    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+  </svg>
   <svg id="lock-icon-unlocked" viewBox="0 0 24 24" aria-hidden="true" hidden>
-  <rect x="5" y="11" width="14" height="10" rx="2"/>
-  <path d="M8 11V7a4 4 0 0 1 8 0"/>
-</svg>
+    <rect x="3" y="11" width="18" height="11" rx="2"/>
+    <path d="M7 11V7a5 5 0 0 1 9.9-1"/>
+  </svg>
 </button>
 
 <div class="modal-overlay" id="pw-modal" role="dialog" aria-modal="true" aria-labelledby="pw-title">
@@ -111,7 +113,7 @@ body:not(.is-unlocked) .badge-unlocked{display:none}
   <div id="locked-view">
     <div class="card lock-hero">
       <div class="big-lock" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
       </div>
       <h2 style="margin-top:0">This page is restricted</h2>
       <p class="muted">Roster Manager includes IC time entry plus Manager view (Needs attention dashboard and full team density). Download links and install/use steps are hidden until you unlock.</p>
@@ -331,14 +333,8 @@ body:not(.is-unlocked) .badge-unlocked{display:none}
 
   function applyUnlocked(on){
     body.classList.toggle('is-unlocked', on);
-    if (iconLocked) {
-      iconLocked.hidden = !!on;
-      iconLocked.style.display = on ? 'none' : 'block';
-    }
-    if (iconUnlocked) {
-      iconUnlocked.hidden = !on;
-      iconUnlocked.style.display = on ? 'block' : 'none';
-    }
+    if (iconLocked) iconLocked.toggleAttribute('hidden', !!on);
+    if (iconUnlocked) iconUnlocked.toggleAttribute('hidden', !on);
     lockBtn.setAttribute('aria-label', on ? 'Lock Manager guide' : 'Unlock Manager guide');
     lockBtn.title = on ? 'Lock guide' : 'Manager access';
     if (heroSub) {

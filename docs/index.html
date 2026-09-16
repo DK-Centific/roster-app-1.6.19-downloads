@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Roster App — Download &amp; Help</title>
+  <style>
+    :root {
+      --bg: #12141A;
+      --card: #1B1E27;
+      --text: #ECEFF4;
+      --muted: #8E95A2;
+      --gold: #C4A574;
+      --gold-soft: rgba(196,165,116,.18);
+      --border: rgba(255,255,255,.08);
+      --rose: #C48989;
+      --ok: #8FA3B8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    a { color: var(--gold); }
+    .wrap { max-width: 920px; margin: 0 auto; padding: 28px 20px 64px; }
+    header.hero {
+      display: flex; gap: 16px; align-items: flex-start;
+      margin-bottom: 22px;
+    }
+    .logo {
+      width: 48px; height: 48px; border-radius: 12px;
+      background: linear-gradient(145deg, var(--gold), #8a734f);
+      display: grid; place-items: center; font-weight: 700; color: #1a140c;
+      flex-shrink: 0;
+    }
+    h1 { margin: 0 0 6px; font-size: 1.75rem; letter-spacing: -.02em; }
+    .sub { color: var(--muted); margin: 0; }
+    .badge {
+      display: inline-block; margin-top: 10px;
+      font-size: 12px; font-weight: 600; letter-spacing: .04em;
+      color: var(--gold); background: var(--gold-soft);
+      border: 1px solid rgba(196,165,116,.35);
+      border-radius: 999px; padding: 4px 10px;
+    }
+    .tabs {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px; margin: 22px 0 22px;
+    }
+    .tabs button {
+      appearance: none; border: 1px solid transparent;
+      background: transparent; color: var(--muted);
+      padding: 10px 14px; border-radius: 10px;
+      font: inherit; font-weight: 600; cursor: pointer;
+    }
+    .tabs button:hover { color: var(--text); background: rgba(255,255,255,.04); }
+    .tabs button.active {
+      color: var(--text); background: var(--card);
+      border-color: var(--border);
+      box-shadow: 0 0 0 1px rgba(196,165,116,.25);
+    }
+    .panel { display: none; }
+    .panel.active { display: block; }
+    .card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 20px 20px 18px;
+      box-shadow: 0 8px 28px rgba(0,0,0,.25);
+      margin-bottom: 14px;
+    }
+    .card h2 { margin: 0 0 8px; font-size: 1.2rem; }
+    .card h3 { margin: 18px 0 8px; font-size: 1.05rem; color: var(--gold); }
+    .card p { margin: 0 0 10px; color: var(--text); }
+    .muted { color: var(--muted); }
+    .grid-2 {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    }
+    @media (max-width: 720px) { .grid-2 { grid-template-columns: 1fr; } }
+    .dl-btn {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%; text-decoration: none; text-align: center;
+      background: var(--gold); color: #1a140c !important;
+      font-weight: 700; border-radius: 12px; padding: 14px 16px;
+      border: 0; cursor: pointer;
+      transition: transform .12s ease, filter .12s ease;
+    }
+    .dl-btn:hover { filter: brightness(1.05); transform: translateY(-1px); }
+    .dl-btn.secondary {
+      background: transparent; color: var(--text) !important;
+      border: 1px solid rgba(196,165,116,.45);
+    }
+    .dl-btn small { display: block; font-weight: 500; opacity: .8; font-size: 12px; }
+    .browser-card { text-align: center; }
+    .browser-card .icon {
+      width: 52px; height: 52px; margin: 0 auto 10px; border-radius: 14px;
+      display: grid; place-items: center; font-size: 24px;
+      background: rgba(255,255,255,.04); border: 1px solid var(--border);
+    }
+    .step {
+      display: grid; grid-template-columns: 1fr; gap: 12px;
+      margin-bottom: 18px;
+    }
+    .step img {
+      width: 100%; border-radius: 14px; border: 1px solid var(--border);
+      background: #0d0f14;
+    }
+    .step-body { padding: 4px 2px 0; }
+    .step-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-width: 28px; height: 28px; border-radius: 999px;
+      background: var(--gold-soft); color: var(--gold);
+      font-weight: 700; font-size: 13px; margin-right: 8px;
+    }
+    ol.easy, ul.easy { padding-left: 1.2rem; margin: 8px 0 0; }
+    ol.easy li, ul.easy li { margin: 6px 0; }
+    .callout {
+      border-left: 3px solid var(--gold);
+      background: rgba(196,165,116,.08);
+      padding: 12px 14px; border-radius: 0 12px 12px 0;
+      margin: 12px 0;
+    }
+    .callout.warn { border-left-color: var(--rose); background: rgba(196,137,137,.1); }
+    .callout.tip { border-left-color: var(--ok); background: rgba(143,163,184,.1); }
+    code, kbd {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .9em; background: rgba(255,255,255,.06);
+      border: 1px solid var(--border); border-radius: 6px; padding: 1px 6px;
+    }
+    footer {
+      margin-top: 28px; color: var(--muted); font-size: 13px;
+      border-top: 1px solid var(--border); padding-top: 16px;
+    }
+    .hidden-url { position: absolute; left: -9999px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div class="logo" aria-hidden="true">R</div>
+      <div>
+        <h1>Roster App</h1>
+        <p class="sub">Log your weekly hours in a few clicks. Version 1.6.19 for your team.</p>
+        <span class="badge">Production build · Chrome &amp; Firefox</span>
+      </div>
+    </header>
+
+    <nav class="tabs" role="tablist" aria-label="Guide sections">
+      <button type="button" class="active" data-tab="home" role="tab" aria-selected="true">Main</button>
+      <button type="button" data-tab="download" role="tab" aria-selected="false">Download</button>
+      <button type="button" data-tab="install" role="tab" aria-selected="false">How to install</button>
+      <button type="button" data-tab="use" role="tab" aria-selected="false">How to use</button>
+    </nav>
+
+    <section id="home" class="panel active" role="tabpanel">
+      <div class="card">
+        <h2>Welcome</h2>
+        <p>Roster App helps you enter Work Week / weekend hours and save them to the team Google Sheet.</p>
+        <p class="muted">Use the tabs above:</p>
+        <ul class="easy">
+          <li><strong>Download</strong> — get the right file for your browser</li>
+          <li><strong>How to install</strong> — simple steps with pictures</li>
+          <li><strong>How to use</strong> — daily workflow, tips, and troubleshooting</li>
+        </ul>
+        <div class="callout tip">
+          <strong>Need help fast?</strong> If the app feels “stuck,” wait 10–30 seconds and try again — the first load of the week can be slow while it talks to Google.
+        </div>
+      </div>
+      <div class="card">
+        <h2>What you need</h2>
+        <ul class="easy">
+          <li>A computer with <strong>Google Chrome</strong> or <strong>Firefox</strong></li>
+          <li>Your work Google account (to save hours)</li>
+          <li>About 5 minutes for the first install</li>
+        </ul>
+        <p class="muted">Safari is not available yet. Manager tools are not part of this guide.</p>
+      </div>
+    </section>
+
+    <section id="download" class="panel" role="tabpanel" hidden>
+      <div class="card">
+        <h2>Download for your browser</h2>
+        <p class="muted">Buttons hide the long download links. Click the one that matches your browser.</p>
+        <div class="grid-2" style="margin-top:14px">
+          <div class="card browser-card" style="margin:0">
+            <div class="icon" aria-hidden="true">🌐</div>
+            <h3 style="margin-top:0;color:var(--text)">Google Chrome</h3>
+            <p class="muted">Recommended for most people</p>
+            <a class="dl-btn" id="btn-chrome" href="https://github.com/DK-Centific/roster-app-1.6.19-downloads/releases/download/v1.6.19-packages/chrome-roster-app-1.6.19.zip">Download for Chrome</a>
+            <p class="muted" style="margin-top:10px;font-size:13px">Gets a ZIP file. You’ll unzip it in the next tab.</p>
+            <p style="margin-top:12px">
+              <a class="dl-btn secondary" href="https://chromewebstore.google.com/detail/roster-app/eggfaemeaioofdccpgjegnpedgjdnlcl" target="_blank" rel="noopener">Chrome Web Store (when published)</a>
+            </p>
+            <p class="muted" style="font-size:12px;margin-top:8px">Store link may say “not available” until Google finishes review.</p>
+          </div>
+          <div class="card browser-card" style="margin:0">
+            <div class="icon" aria-hidden="true">🦊</div>
+            <h3 style="margin-top:0;color:var(--text)">Firefox</h3>
+            <p class="muted">Temporary install for testing</p>
+            <a class="dl-btn" id="btn-firefox" href="https://github.com/DK-Centific/roster-app-1.6.19-downloads/releases/download/v1.6.19-packages/firefox-roster-app-1.6.19.zip">Download for Firefox</a>
+            <p style="margin-top:10px">
+              <a class="dl-btn secondary" href="https://github.com/DK-Centific/roster-app-1.6.19-downloads/releases/download/v1.6.19-packages/roster-app-1.6.19-firefox.xpi">Download Firefox .xpi</a>
+            </p>
+            <p class="muted" style="font-size:13px;margin-top:10px">Firefox may ask you to re-add it after you close the browser (temporary add-on).</p>
+          </div>
+        </div>
+      </div>
+      <div class="callout">
+        <strong>Tip:</strong> After downloading, don’t open random files inside the ZIP. Go to <strong>How to install</strong> and follow the pictures.
+      </div>
+    </section>
+
+    <section id="install" class="panel" role="tabpanel" hidden>
+      <div class="card">
+        <h2>How to install (super simple)</h2>
+        <p class="muted">Follow these like a recipe. Chrome steps first — Firefox notes at the bottom.</p>
+      </div>
+
+      <div class="card step">
+        <div class="step-body">
+          <h3><span class="step-num">1</span> Download the ZIP</h3>
+          <p>Go to the <strong>Download</strong> tab and click <strong>Download for Chrome</strong> (or Firefox). The file lands in your <strong>Downloads</strong> folder.</p>
+        </div>
+        <img src="images/step-1-download.png" alt="Step 1: download a ZIP into your Downloads folder" />
+      </div>
+
+      <div class="card step">
+        <div class="step-body">
+          <h3><span class="step-num">2</span> Unzip the file</h3>
+          <p>On a Mac: double-click the ZIP. On Windows: right-click → <strong>Extract All</strong>.</p>
+          <p>You should get a folder that contains a file named <code>manifest.json</code>. That folder is what you’ll load.</p>
+        </div>
+        <img src="images/step-2-unzip.png" alt="Step 2: unzip and find manifest.json" />
+      </div>
+
+      <div class="card step">
+        <div class="step-body">
+          <h3><span class="step-num">3</span> Open Extensions and turn on Developer mode</h3>
+          <ol class="easy">
+            <li>Open Chrome</li>
+            <li>In the address bar type <kbd>chrome://extensions</kbd> and press Enter</li>
+            <li>Turn <strong>Developer mode</strong> <em>ON</em> (usually top-right)</li>
+          </ol>
+        </div>
+        <img src="images/step-3-devmode.png" alt="Step 3: enable Developer mode on the Extensions page" />
+      </div>
+
+      <div class="card step">
+        <div class="step-body">
+          <h3><span class="step-num">4</span> Load the unpacked folder</h3>
+          <ol class="easy">
+            <li>Click <strong>Load unpacked</strong></li>
+            <li>Select the unzipped <strong>folder</strong> (the one that contains <code>manifest.json</code>)</li>
+            <li>Click Open / Select</li>
+          </ol>
+          <div class="callout warn">
+            <strong>Common mistake:</strong> Don’t select the ZIP file. Select the <em>folder after</em> unzipping.
+          </div>
+        </div>
+        <img src="images/step-4-load.png" alt="Step 4: click Load unpacked and choose the folder" />
+      </div>
+
+      <div class="card step">
+        <div class="step-body">
+          <h3><span class="step-num">5</span> Pin Roster App</h3>
+          <ol class="easy">
+            <li>Click the puzzle-piece icon on the Chrome toolbar</li>
+            <li>Find <strong>Roster App</strong></li>
+            <li>Click the pin so it stays visible</li>
+            <li>Click the Roster App icon anytime to open it</li>
+          </ol>
+        </div>
+        <img src="images/step-5-pin.png" alt="Step 5: pin the extension and open it from the toolbar" />
+      </div>
+
+      <div class="card">
+        <h3>Firefox install (short version)</h3>
+        <ol class="easy">
+          <li>Download the Firefox ZIP or .xpi from the Download tab</li>
+          <li>Open Firefox and go to <kbd>about:debugging#/runtime/this-firefox</kbd></li>
+          <li>Click <strong>Load Temporary Add-on…</strong></li>
+          <li>Pick <code>manifest.json</code> inside the unzipped folder (or the .xpi file)</li>
+        </ol>
+        <div class="callout warn">
+          Temporary Firefox add-ons disappear when you fully quit Firefox. You’ll need to load it again next time (unless your IT publishes a signed add-on later).
+        </div>
+      </div>
+    </section>
+
+    <section id="use" class="panel" role="tabpanel" hidden>
+      <div class="card">
+        <h2>How to use Roster App</h2>
+        <h3>1) Open the app</h3>
+        <p>Click the Roster App icon on your browser toolbar.</p>
+        <h3>2) Choose your name</h3>
+        <p>Search/select your name from the list (first time only — it remembers you).</p>
+        <h3>3) Enter hours</h3>
+        <p>Click into Plan / hours for the week. Add projects with:</p>
+        <ul class="easy">
+          <li><strong>Choose Client (optional)</strong></li>
+          <li><strong>Project / Task</strong></li>
+          <li>The <strong>+</strong> button to add the row</li>
+        </ul>
+        <p>Then type hours for Work Week / Sat / Sun (or weekdays, depending on your build layout).</p>
+        <h3>4) Save</h3>
+        <p>Click <strong>Save estimations</strong>. Wait for the success message before closing.</p>
+      </div>
+
+      <div class="card">
+        <h2>Caveats &amp; easy troubleshooting</h2>
+
+        <div class="callout tip">
+          <strong>Server delay is normal.</strong> The first load of a week can take a while (sometimes ~10–30+ seconds) while Google Apps Script reads the sheet. A spinner or status line means it’s working — don’t spam-click.
+        </div>
+
+        <h3>If names or projects don’t load</h3>
+        <ul class="easy">
+          <li>Wait 20–30 seconds and open the app again</li>
+          <li>Check you’re online</li>
+          <li>On <kbd>chrome://extensions</kbd>, click <strong>Reload</strong> on Roster App</li>
+        </ul>
+
+        <h3>If Save fails</h3>
+        <ul class="easy">
+          <li>Confirm you selected your correct name</li>
+          <li>Try Save once more after a short wait</li>
+          <li>If you see an error code, screenshot it and send it to the DC Quality / roster owner</li>
+        </ul>
+
+        <h3>If Client / Project lists are empty</h3>
+        <ul class="easy">
+          <li>Your team needs Apps Script <strong>1.6.19+</strong> deployed (same web app URL)</li>
+          <li>Ask your admin if MetaData → Client table is up to date</li>
+          <li>Temporary fallback: you may still type a project name if the dropdown can’t load</li>
+        </ul>
+
+        <h3>Reminders</h3>
+        <p>On Chrome, Roster App can remind you Mon/Tue to submit hours. Keep Chrome installed; reminders won’t fire if the extension was removed.</p>
+
+        <h3>Still stuck?</h3>
+        <ul class="easy">
+          <li>Remove the extension → re-download → install again (your sheet data stays in Google Sheets)</li>
+          <li>Contact your roster admin with: browser name, approx time, and a screenshot of the error</li>
+        </ul>
+      </div>
+    </section>
+
+    <footer>
+      Roster App 1.6.19 · Internal team guide · Downloads hosted on the public releases page for DK-Centific/roster-app-1.6.19-downloads
+    </footer>
+  </div>
+
+  <script>
+    const tabs = document.querySelectorAll('.tabs button');
+    const panels = document.querySelectorAll('.panel');
+    function showTab(id) {
+      tabs.forEach((b) => {
+        const on = b.dataset.tab === id;
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      panels.forEach((p) => {
+        const on = p.id === id;
+        p.classList.toggle('active', on);
+        p.hidden = !on;
+      });
+      history.replaceState(null, '', '#' + id);
+    }
+    tabs.forEach((b) => b.addEventListener('click', () => showTab(b.dataset.tab)));
+    const hash = (location.hash || '#home').slice(1);
+    if (document.getElementById(hash)) showTab(hash);
+  </script>
+</body>
+</html>

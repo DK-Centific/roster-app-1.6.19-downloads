@@ -110,7 +110,7 @@ body:not(.is-unlocked) #lock-icon-unlocked{display:none!important}
       <h2>Welcome</h2>
       <p>Roster App helps you enter Work Week / weekend hours and save them to the team Google Sheet.</p>
       <ul class="easy">
-        <li><strong>Download</strong> — Chrome/MS Edge, Firefox, or Safari</li>
+        <li><strong>Download</strong> — Chrome via Web Store (or ZIP), Edge ZIP, Firefox, or Safari</li>
         <li><strong>How to install</strong> — pick your browser with the pill bar</li>
         <li><strong>How to use</strong> — illustrated daily steps + troubleshooting</li>
       </ul>
@@ -135,10 +135,10 @@ body:not(.is-unlocked) #lock-icon-unlocked{display:none!important}
         <div class="card browser-card" style="margin:0">
           <div class="icon">🌐</div>
           <h3 style="margin-top:0;color:var(--text)">Chrome / MS Edge</h3>
-          <p class="muted" style="font-size:13px">Same ZIP works in both browsers</p>
-          <a class="dl-btn" href="https://github.com/DK-Centific/roster-app-1.6.19-downloads/releases/download/v1.6.19-packages/chrome-roster-app-1.6.19.zip">Download for Chrome / MS Edge</a>
-          <p style="margin-top:10px"><a class="dl-btn secondary" href="https://chromewebstore.google.com/detail/roster-app/eggfaemeaioofdccpgjegnpedgjdnlcl" target="_blank" rel="noopener">Chrome Web Store</a></p>
-          <p class="muted" style="font-size:12px;margin-top:8px">Edge: after download, follow the Edge steps under How to install.</p>
+          <p class="muted" style="font-size:13px"><strong>Chrome:</strong> install from the Web Store (recommended). Edge still uses the ZIP sideload.</p>
+          <a class="dl-btn" href="https://chromewebstore.google.com/detail/roster-app/eggfaemeaioofdccpgjegnpedgjdnlcl" target="_blank" rel="noopener">Install from Chrome Web Store</a>
+          <p style="margin-top:10px"><a class="dl-btn secondary" href="https://github.com/DK-Centific/roster-app-1.6.19-downloads/releases/download/v1.6.19-packages/chrome-roster-app-1.6.19.zip">Download ZIP (Chrome sideload / Edge)</a></p>
+          <p class="muted" style="font-size:12px;margin-top:8px">Store install steps are under <strong>How to install → Chrome</strong>. Edge: ZIP + Edge steps.</p>
         </div>
         <div class="card browser-card" style="margin:0">
           <div class="icon">🦊</div>
@@ -169,7 +169,31 @@ body:not(.is-unlocked) #lock-icon-unlocked{display:none!important}
     </div>
 
     <div id="install-chrome" class="browser-panel active">
-      <div class="card step"><div><h3><span class="step-num">1</span> Download the ZIP</h3><p>Download tab → <strong>Download for Chrome / MS Edge</strong>.</p></div>
+      <div class="card">
+        <h3 style="margin-top:0">Recommended: Chrome Web Store</h3>
+        <p class="muted" style="margin:0">Easiest path for Chrome — no Developer mode or ZIP needed.</p>
+      </div>
+      <div class="card step"><div><h3><span class="step-num">1</span> Open the store listing</h3>
+        <p>Download tab → <strong>Install from Chrome Web Store</strong>, or open
+        <a href="https://chromewebstore.google.com/detail/roster-app/eggfaemeaioofdccpgjegnpedgjdnlcl" target="_blank" rel="noopener">Roster App on the Chrome Web Store</a>.</p>
+      </div></div>
+      <div class="card step"><div><h3><span class="step-num">2</span> Click Add to Chrome</h3>
+        <ol class="easy">
+          <li>On the store page, click <strong>Add to Chrome</strong></li>
+          <li>Confirm <strong>Add extension</strong> in the popup</li>
+        </ol>
+      </div></div>
+      <div class="card step"><div><h3><span class="step-num">3</span> Pin &amp; open</h3>
+        <p>Puzzle icon (extensions) → pin <strong>Roster App</strong> → click the icon to open.</p>
+      </div>
+      <img src="images/step-5-pin.png" alt="Pin extension"/></div>
+      <div class="callout tip"><strong>Done.</strong> Choose your name the first time, then log hours as usual. Updates install automatically from the store.</div>
+
+      <div class="card" style="margin-top:18px">
+        <h3 style="margin-top:0">Alternate: sideload ZIP (Chrome)</h3>
+        <p class="muted">Only if you need a local/unlisted build. Prefer the Web Store for normal use.</p>
+      </div>
+      <div class="card step"><div><h3><span class="step-num">1</span> Download the ZIP</h3><p>Download tab → <strong>Download ZIP (Chrome sideload / Edge)</strong>.</p></div>
       <img src="images/step-1-download.png" alt="Download ZIP"/></div>
       <div class="card step"><div><h3><span class="step-num">2</span> Unzip</h3><p>Get a folder that contains <code>manifest.json</code>.</p></div>
       <img src="images/step-2-unzip.png" alt="Unzip"/></div>

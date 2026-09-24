@@ -11,19 +11,12 @@ header.hero{display:flex;gap:16px;align-items:center;margin-bottom:22px}
 .logo{width:52px;height:52px;border-radius:12px;object-fit:contain;background:transparent;padding:0;flex-shrink:0}
 h1{margin:0 0 6px;font-size:1.75rem;letter-spacing:-.02em}.sub{color:var(--muted);margin:0}
 .badge{display:inline-block;margin-top:10px;font-size:12px;font-weight:600;letter-spacing:.04em;color:var(--gold);background:var(--gold-soft);border:1px solid rgba(196,165,116,.35);border-radius:999px;padding:4px 10px}
-.tabs{display:flex;flex-wrap:wrap;gap:8px;border-bottom:1px solid var(--border);padding-bottom:10px;margin:22px 0}
-.tabs button{appearance:none;border:1px solid transparent;background:transparent;color:var(--muted);padding:10px 14px;border-radius:10px;font:inherit;font-weight:600;cursor:pointer}
-.tabs button:hover{color:var(--text);background:rgba(255,255,255,.04)}
-.tabs button.active{color:var(--text);background:var(--card);border-color:var(--border);box-shadow:0 0 0 1px rgba(196,165,116,.25)}
-.panel{display:none}.panel.active{display:block}
 .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;box-shadow:0 8px 28px rgba(0,0,0,.25);margin-bottom:14px}
 .card h2{margin:0 0 8px;font-size:1.2rem}.card h3{margin:18px 0 8px;font-size:1.05rem;color:var(--gold)}
-.muted{color:var(--muted)}.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
-@media(max-width:900px){.grid-3{grid-template-columns:1fr}}
+.muted{color:var(--muted)}
 .dl-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;text-decoration:none;text-align:center;background:var(--gold);color:#1a140c!important;font-weight:700;border-radius:12px;padding:14px 16px;border:0;cursor:pointer;transition:transform .12s ease,filter .12s ease}
 .dl-btn:hover{filter:brightness(1.05);transform:translateY(-1px)}
 .dl-btn.secondary{background:transparent;color:var(--text)!important;border:1px solid rgba(196,165,116,.45)}
-.browser-card{text-align:center}.browser-card .icon{width:52px;height:52px;margin:0 auto 10px;border-radius:14px;display:grid;place-items:center;font-size:24px;background:rgba(255,255,255,.04);border:1px solid var(--border)}
 .step{display:grid;gap:12px;margin-bottom:18px}.step img{width:100%;border-radius:14px;border:1px solid var(--border);background:#0d0f14}
 .step-num{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:28px;border-radius:999px;background:var(--gold-soft);color:var(--gold);font-weight:700;font-size:13px;margin-right:8px}
 ol.easy,ul.easy{padding-left:1.2rem;margin:8px 0 0}ol.easy li,ul.easy li{margin:6px 0}
@@ -40,7 +33,8 @@ footer{margin-top:28px;color:var(--muted);font-size:13px;border-top:1px solid va
     <img class="logo" src="images/centific-logo.png" alt="Centific"/>
     <div>
       <h1>Safari install guide</h1>
-      <p class="sub">Mac only · Roster App 1.6.19</p>
+      <p class="sub">Mac only · Roster App 1.6.19 · Internal Centific DMG</p>
+      <span class="badge">No Xcode required for teammates</span>
       <p style="margin-top:12px"><a class="dl-btn secondary" href="index.html" style="width:auto;display:inline-flex;padding:10px 14px">← Back to main guide</a></p>
     </div>
   </header>
@@ -49,58 +43,71 @@ footer{margin-top:28px;color:var(--muted);font-size:13px;border-top:1px solid va
     <h2>Before you start</h2>
     <ul class="easy">
       <li>You need a <strong>Mac</strong> with Safari</li>
-      <li>Download the Safari package from the main guide Download tab (or button below)</li>
-      <li>Full Xcode is required once to convert the package into a Safari app (your IT may do this for you)</li>
+      <li>Download the internal <strong>.dmg</strong> below (double-click install — no Xcode)</li>
+      <li>This build is for <strong>Centific internal</strong> use (unsigned). Safari still needs two enable switches.</li>
     </ul>
-    <p style="margin-top:12px"><a class="dl-btn" href="https://github.com/DK-Centific/roster-app-1.6.19-downloads/releases/download/v1.6.19-packages/safari-roster-app-1.6.19-source.zip">Download Safari source package</a></p>
-    <div class="callout warn">If your Mac does not have Xcode yet, ask IT to convert the source package with <code>safari-web-extension-converter</code>, then send you the .app. Everyday users only need the enable steps below.</div>
+    <p style="margin-top:12px"><a class="dl-btn" href="https://github.com/DK-Centific/roster-app-1.6.19-downloads/releases/download/v1.6.19-packages/Roster-App-Safari-1.6.19-internal.dmg">Download Roster App Safari (.dmg)</a></p>
+    <div class="callout tip">Prefer Chrome or Edge when you can — those installs are simpler. Use Safari only if your Mac workflow requires it.</div>
   </div>
 
   <div class="card step">
     <div>
-      <h3><span class="step-num">1</span> Allow unsigned extensions (testing)</h3>
+      <h3><span class="step-num">1</span> Open the DMG and run Roster App</h3>
+      <ol class="easy">
+        <li>Open <code>Roster-App-Safari-1.6.19-internal.dmg</code></li>
+        <li>Double-click <strong>Roster App</strong> (or drag it to Applications, then open it once)</li>
+        <li>If macOS says the app can’t be opened: right-click → <strong>Open</strong> → Open</li>
+        <li>Leave the small Roster window open until Safari shows the extension</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="card step">
+    <div>
+      <h3><span class="step-num">2</span> Allow unsigned extensions</h3>
       <ol class="easy">
         <li>Open Safari</li>
         <li>Menu bar → <strong>Develop</strong></li>
         <li>Turn on <strong>Allow Unsigned Extensions</strong></li>
       </ol>
       <p class="muted">If you don’t see Develop: Safari → Settings → Advanced → “Show features for web developers”.</p>
+      <div class="callout warn">Allow Unsigned Extensions turns <strong>off</strong> when Safari fully quits. Turn it back on after a Safari restart.</div>
     </div>
     <img src="images/safari-1-unsigned.png" alt="Allow Unsigned Extensions in Safari Develop menu"/>
   </div>
 
   <div class="card step">
     <div>
-      <h3><span class="step-num">2</span> Enable Roster App</h3>
+      <h3><span class="step-num">3</span> Enable Roster App</h3>
       <ol class="easy">
         <li>Safari → Settings → Extensions</li>
-        <li>Find <strong>Roster App</strong></li>
+        <li>Find <strong>Roster App</strong> (or Roster App Extension)</li>
         <li>Turn it <strong>ON</strong></li>
-        <li>Use <strong>Open in Safari</strong> / the toolbar button when shown</li>
+        <li>Use the toolbar button / Open in Safari when shown</li>
       </ol>
     </div>
     <img src="images/safari-2-enable.png" alt="Enable Roster App in Safari Extensions"/>
   </div>
 
   <div class="card">
-    <h3>If you are the person converting with Xcode</h3>
-    <ol class="easy">
-      <li>Unzip <code>safari-roster-app-1.6.19-source.zip</code></li>
-      <li>Run: <code>xcrun safari-web-extension-converter /path/to/unzipped-folder</code></li>
-      <li>Open the generated Xcode project → Run the macOS app once</li>
-      <li>Then complete Steps 1–2 above in Safari</li>
-    </ol>
-    <div class="callout tip">Unsigned Safari extensions are for internal testing. A signed Mac App Store / notarized build is better for wide rollout.</div>
-  </div>
-
-  <div class="card">
     <h3>Troubleshooting</h3>
     <ul class="easy">
       <li><strong>No Develop menu</strong> — enable developer features in Safari Settings → Advanced</li>
-      <li><strong>Extension missing</strong> — the Safari app from Xcode must be run at least once</li>
+      <li><strong>Extension missing</strong> — open <strong>Roster App.app</strong> from the DMG / Applications at least once, then reopen Safari</li>
+      <li><strong>Gatekeeper block</strong> — right-click the app → Open (don’t just double-click the first time)</li>
       <li><strong>Hours won’t save</strong> — same as Chrome: wait for Google, confirm your name, try again</li>
     </ul>
   </div>
-  <footer>Centific · Safari install · Roster App 1.6.19</footer>
+
+  <div class="card">
+    <h3>Maintainers only (rebuild)</h3>
+    <p class="muted">Everyday teammates do <strong>not</strong> need this. Only if you are regenerating the Safari wrapper from the web-extension source:</p>
+    <ol class="easy">
+      <li>Unzip <code>safari-roster-app-1.6.19-source.zip</code> (still on the release for rebuilds)</li>
+      <li>Run: <code>xcrun safari-web-extension-converter "/path/to/safari-roster-app-1.6.19-source"</code></li>
+      <li>In Xcode, run the <strong>macOS</strong> scheme (My Mac), then package a new .dmg</li>
+    </ol>
+  </div>
+  <footer>Centific · Safari install · Roster App 1.6.19 · Internal DMG</footer>
 </div>
 </body></html>

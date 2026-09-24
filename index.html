@@ -149,8 +149,9 @@ body:not(.is-unlocked) #lock-icon-unlocked{display:none!important}
         <div class="card browser-card" style="margin:0">
           <div class="icon">🧭</div>
           <h3 style="margin-top:0;color:var(--text)">Safari</h3>
-          <a class="dl-btn" href="https://github.com/DK-Centific/roster-app-1.6.19-downloads/releases/download/v1.6.19-packages/safari-roster-app-1.6.19-source.zip">Download for Safari</a>
-          <p class="muted" style="font-size:12px;margin-top:10px">Then use the Safari install guide.</p>
+          <a class="dl-btn" href="https://github.com/DK-Centific/roster-app-1.6.19-downloads/releases/download/v1.6.19-packages/Roster-App-Safari-1.6.19-internal.dmg">Download for Safari (.dmg)</a>
+          <p class="muted" style="font-size:12px;margin-top:10px">Mac only · Internal Centific build · Then follow the Safari install guide.</p>
+          <p style="margin-top:10px"><a class="dl-btn secondary" href="safari-install.html">Safari install guide</a></p>
         </div>
       </div>
     </div>
@@ -237,18 +238,23 @@ body:not(.is-unlocked) #lock-icon-unlocked{display:none!important}
 
     <div id="install-safari" class="browser-panel">
       <div class="card">
-        <h3 style="margin-top:0">Safari (Mac)</h3>
-        <p>Safari needs a few extra Mac steps. Use the dedicated illustrated guide:</p>
-        <p style="margin-top:12px"><a class="dl-btn" href="safari-install.html">Open Safari install guide</a></p>
-        <p class="muted" style="margin-top:12px">Quick preview:</p>
+        <h3 style="margin-top:0">Safari (Mac) — internal DMG</h3>
+        <p>Download the <strong>.dmg</strong>, open Roster App once, then enable it in Safari. Full illustrated steps:</p>
+        <p style="margin-top:12px"><a class="dl-btn" href="https://github.com/DK-Centific/roster-app-1.6.19-downloads/releases/download/v1.6.19-packages/Roster-App-Safari-1.6.19-internal.dmg">Download Safari .dmg</a></p>
+        <p style="margin-top:10px"><a class="dl-btn secondary" href="safari-install.html">Open Safari install guide</a></p>
       </div>
-      <div class="card step"><div><h3><span class="step-num">1</span> Allow unsigned extensions</h3><p>Safari → Develop → Allow Unsigned Extensions (for testing).</p></div>
+      <div class="card step"><div><h3><span class="step-num">1</span> Open the DMG &amp; run Roster App</h3>
+        <ol class="easy">
+          <li>Download <strong>Roster-App-Safari-1.6.19-internal.dmg</strong></li>
+          <li>Open the DMG → double-click <strong>Roster App</strong> (or drag it to Applications, then open)</li>
+          <li>If macOS blocks it: right-click → <strong>Open</strong> → Open</li>
+        </ol>
+      </div></div>
+      <div class="card step"><div><h3><span class="step-num">2</span> Allow unsigned extensions</h3><p>Safari → Develop → Allow Unsigned Extensions (turn ON). If Develop is missing: Safari → Settings → Advanced → “Show features for web developers”.</p></div>
       <img src="images/safari-1-unsigned.png" alt="Safari unsigned"/></div>
-      <div class="card step"><div><h3><span class="step-num">2</span> Enable Roster App</h3><p>Safari Settings → Extensions → turn Roster App ON.</p></div>
+      <div class="card step"><div><h3><span class="step-num">3</span> Enable Roster App</h3><p>Safari → Settings → Extensions → turn <strong>Roster App</strong> ON.</p></div>
       <img src="images/safari-2-enable.png" alt="Safari enable"/></div>
-      <div class="card">
-        <p><a class="dl-btn secondary" href="safari-install.html">Open full Safari install guide</a></p>
-      </div>
+      <div class="callout warn"><strong>Note:</strong> Allow Unsigned Extensions turns off when Safari quits — turn it back on after a Safari restart. This is an internal Centific build (not App Store / notarized).</div>
     </div>
 
     <div id="install-firefox" class="browser-panel">

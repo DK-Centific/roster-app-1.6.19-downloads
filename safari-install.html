@@ -47,6 +47,7 @@ footer{margin-top:28px;color:var(--muted);font-size:13px;border-top:1px solid va
       <li>This build is for <strong>Centific internal</strong> use (unsigned). Safari still needs two enable switches.</li>
     </ul>
     <p style="margin-top:12px"><a class="dl-btn" href="https://github.com/DK-Centific/roster-app-1.6.19-downloads/releases/download/v1.6.19-packages/Roster-App-Safari-1.6.19-internal.dmg">Download Roster App Safari (.dmg)</a></p>
+    <div class="callout">The Safari DMG is still <strong>1.6.19</strong> until a new Xcode package is cut. Chrome, Firefox, and Edge are <strong>1.6.20</strong>.</div>
     <div class="callout tip">Prefer Chrome or Edge when you can — those installs are simpler. Use Safari only if your Mac workflow requires it.</div>
   </div>
 
@@ -103,8 +104,8 @@ footer{margin-top:28px;color:var(--muted);font-size:13px;border-top:1px solid va
     <h3>Maintainers only (rebuild)</h3>
     <p class="muted">Everyday teammates do <strong>not</strong> need this. Only if you are regenerating the Safari wrapper from the web-extension source:</p>
     <ol class="easy">
-      <li>Unzip <code>safari-roster-app-1.6.19-source.zip</code> (still on the release for rebuilds)</li>
-      <li>Run: <code>xcrun safari-web-extension-converter "/path/to/safari-roster-app-1.6.19-source"</code></li>
+      <li>Unzip <a href="https://github.com/DK-Centific/roster-app-1.6.19-downloads/releases/download/v1.6.19-packages/safari-roster-app-1.6.20-source.zip"><code>safari-roster-app-1.6.20-source.zip</code></a> (on the release for rebuilds). The packaged teammate DMG is still 1.6.19 until a new Xcode package is cut.</li>
+      <li>Run: <code>xcrun safari-web-extension-converter "/path/to/safari-roster-app-1.6.20-source"</code></li>
       <li>In Xcode, run the <strong>macOS</strong> scheme (My Mac), then package a new .dmg</li>
     </ol>
   </div>
